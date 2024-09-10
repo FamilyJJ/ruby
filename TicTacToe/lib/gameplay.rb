@@ -1,6 +1,7 @@
-class GamePlay
+# frozen_string_literal: true
 
-  def win(board)
+class GamePlay
+  def win(board, player)
     winning_combinations = [
       [board[0][0], board[0][1], board[0][2]],
       [board[2][0], board[2][1], board[2][2]],
@@ -8,19 +9,21 @@ class GamePlay
       [board[0][0], board[2][0], board[4][0]],
       [board[0][1], board[2][1], board[4][1]],
       [board[0][2], board[2][2], board[4][2]],
-      [board[0][0], board[2][2], board[4][4]],
-      [board[0][2], board[2][2], board[4][0]]
+      [board[0][0], board[2][1], board[4][2]],
+      [board[0][2], board[2][1], board[4][0]]
     ]
     winning_combinations.any? do |array|
-      array.all? { |value| value == "| x " } || array.all? { |value| value == "| o " }
+      if array.all? { |value| value == '| x ' } || array.all? { |value| value == '| o ' }
+        puts "Player #{player} wins the game"
+        true
+      end
     end
   end
 
   def tie(board)
-    board.all? do |array|
-      array.all? { |item| item !~ /\d/ }
-    end
-  end
+    return unless board.all? { |array| array.all? { |item| item !~ /\d/ } }
 
+    puts "It's a tie"
+    true
+  end
 end
-  
