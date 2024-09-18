@@ -11,27 +11,34 @@ class Main
     game_board.display_board
 
     loop do
-      player_action(player_one, game_board)
+      user_input = player_action(player_one, game_board)
+      make_move(user_input)
       break if GamePlay.win(game_board.board, player_one.player)
       break if GamePlay.tie(game_board.board)
 
       player_action(player_two, game_board)
-      break if GamePlay.win(game_board.board, player_two.player)
-      break if GamePlay.tie(game_board.board)
+      break if check_result.nil?
 
 
     end
   end
+
 
   def player_action(player, game_board)
     player.move(game_board.board)
     game_board.display_board
   end
 
+  def check_result
+    return 'true' if GamePlay.win(game_board.board, player_two.player) || GamePlay.tie(game_board.board)
+  end
 end
 
 #bundle exec irb
 #load "./main.rb"
 # Main.new.run
 # reload!
+#
+#
+#
 # require "./main.rb"

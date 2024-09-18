@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class GamePlay
+module GamePlay
+  module_function
+
   def win(board, player)
     winning_combinations = [
       [board[0][0], board[0][1], board[0][2]],
